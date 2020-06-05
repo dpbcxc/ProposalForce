@@ -2,7 +2,7 @@
 <QuickAction xmlns="http://soap.sforce.com/2006/04/metadata">
     <height>250</height>
     <label>Generate CSV</label>
-    <lightningComponent>proposalforce__rm_rfp_generateCSV</lightningComponent>
+    <lightningComponent>rm_rfp_generateCSV</lightningComponent>
     <optionsCreateFeedItem>false</optionsCreateFeedItem>
     <type>LightningComponent</type>
     <width>-100</width>
