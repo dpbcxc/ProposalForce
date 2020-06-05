@@ -4,8 +4,6 @@
     <apiAccessLevel>Unrestricted</apiAccessLevel>
     <namespacePrefix></namespacePrefix>
     <types>
-        <members>RFPComponent</members>
-        <members>RFPResponseSearch</members>
         <members>RFPStopWords</members>
         <members>RFP_MainController</members>
         <members>getDataCategoriesInterface</members>
