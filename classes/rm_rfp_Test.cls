@@ -7,7 +7,7 @@ Private Static testmethod void getRFPs(){
 	                                Completion_Percentage__c,
 	                                CreatedDate,
 	                                id FROM rfp__c order by Completion_Percentage__c desc limit 1000];
-	System.assertEquals(rfps, proposalforce.RFP_MainController.getRFPs());
+	System.assertEquals(rfps, RFP_MainController.getRFPs());
 
 
 
@@ -50,7 +50,7 @@ Private Static testmethod void getQuestions(){
 
 Private Static testmethod void getKnowledgeArticles(){
 	try{
-  proposalforce.RFP_MainController.getKnowledgeArticles('This is the forest primeval, the whispering pines and hemlocks.', null);
+  RFP_MainController.getKnowledgeArticles('This is the forest primeval, the whispering pines and hemlocks.', null);
   System.assert (true);
 	}
 	catch(exception e) {
@@ -60,7 +60,7 @@ Private Static testmethod void getKnowledgeArticles(){
 
 Private Static testmethod void getKnowledgeObjectName(){
 	try{
-		string returnedName = proposalforce.RFP_MainController.getKnowledgeObjectName();
+		string returnedName = RFP_MainController.getKnowledgeObjectName();
     System.assertEquals(returnedName, 'Knowledge__kav');
 	}
 	catch(exception e) {
@@ -71,7 +71,7 @@ Private Static testmethod void getKnowledgeObjectName(){
 Private Static testmethod void getCurrentUserId(){
 	try{
 		
-    System.assertEquals(proposalforce.RFP_MainController.getCurrentUserId(), UserInfo.getUserId());
+    System.assertEquals(RFP_MainController.getCurrentUserId(), UserInfo.getUserId());
 	}
 	catch(exception e) {
 		system.debug(e);
@@ -80,8 +80,8 @@ Private Static testmethod void getCurrentUserId(){
 
 Private Static testmethod void getKnowledgeCategories(){
 	try{
-		proposalforce.RFP_MainController.getKnowledgeCategories();
-    System.assertEquals(proposalforce.RFP_MainController.getKnowledgeCategories().length() != 0, true);
+		RFP_MainController.getKnowledgeCategories();
+    System.assertEquals(RFP_MainController.getKnowledgeCategories().length() != 0, true);
 	}
 	catch(exception e) {
 		system.debug(e);
@@ -99,11 +99,11 @@ Private Static testmethod void updateQuestion(){
 		rfpQuestions.add(q);
 	}
 	insert rfpQuestions;
-  rfp_question__c[] insertedQs = proposalforce.RFP_MainController.getQuestions(testRfp.Id);
+  rfp_question__c[] insertedQs = RFP_MainController.getQuestions(testRfp.Id);
 	try{
 
     System.assertEquals(insertedQs[0].rfp_response__r.Response_Text__c, null);
-		rfp_question__c[] updatedQs = proposalforce.RFP_MainController.updateQuestion(insertedQs[0], 'Test title', 'Test answer');
+		rfp_question__c[] updatedQs = RFP_MainController.updateQuestion(insertedQs[0], 'Test title', 'Test answer');
     System.assertEquals(updatedQs[0].rfp_response__r.Response_Text__c, 'Test answer');
     
 	}
@@ -111,7 +111,7 @@ Private Static testmethod void updateQuestion(){
 		system.debug(e);
 	}
 	try{
-		proposalforce.RFP_MainController.updateQuestion(null, null, null);
+		RFP_MainController.updateQuestion(null, null, null);
 	}
 	catch(exception e) {
 		system.debug(e);
@@ -130,9 +130,9 @@ Private Static testmethod void updateQuestionStatus(){
 	}
 	insert rfpQuestions;
 	try{
-		proposalforce.RFP_MainController.getQuestions(testRfp.Id);
+		RFP_MainController.getQuestions(testRfp.Id);
     rfpQuestions.sort();
-		rfp_question__c[] updatedQs = proposalforce.RFP_MainController.updateQuestionStatus(rfpQuestions[0], 'Approved');
+		rfp_question__c[] updatedQs = RFP_MainController.updateQuestionStatus(rfpQuestions[0], 'Approved');
     updatedQs.sort();
     System.assertEquals(updatedQs[0].Status__c, 'Approved');
 	}
@@ -141,7 +141,7 @@ Private Static testmethod void updateQuestionStatus(){
 	}
 
 	try{
-		proposalforce.RFP_MainController.updateQuestionStatus(null, null);
+		RFP_MainController.updateQuestionStatus(null, null);
 	}
 	catch(exception e) {
 		system.debug(e);
@@ -186,7 +186,7 @@ Private Static testmethod void setNewComplianceResponses(){
 	testRfp.Compliance_Responses__c = 'test;test';
 	insert testRfp;
 	try{
-		proposalforce.RFP_MainController.setNewComplianceResponses(testRfp);
+		RFP_MainController.setNewComplianceResponses(testRfp);
     string newComplianceResponses = [select Compliance_Responses__c from rfp__c where id = :testRfp.Id].Compliance_Responses__c;
     System.assertEquals(newComplianceResponses, 'test;test');
 	}
@@ -195,7 +195,7 @@ Private Static testmethod void setNewComplianceResponses(){
 	}
 
 	try{
-		proposalforce.RFP_MainController.setNewComplianceResponses(null);
+		RFP_MainController.setNewComplianceResponses(null);
 	}
 	catch(exception e) {
 		system.debug(e);
@@ -215,7 +215,7 @@ Private Static testmethod void generateCSV(){
 	}
 	insert rfpQuestions;
 	try{
-		string newContentDocumentId = proposalforce.RFP_MainController.generateCSV(testRfp.Id);
+		string newContentDocumentId = RFP_MainController.generateCSV(testRfp.Id);
     string newCDI = [select id from contentdocument order by createddate desc limit 1].Id;
     System.assertEquals(newCDI, newContentDocumentId);
 
@@ -225,7 +225,7 @@ Private Static testmethod void generateCSV(){
 	}
 
 	try{
-		proposalforce.RFP_MainController.generateCSV(null);
+		RFP_MainController.generateCSV(null);
 	}
 	catch(exception e) {
 		system.debug(e);
@@ -247,7 +247,7 @@ Private Static testmethod void generateWordDoc(){
 	try{
 		
 
-    string newContentDocumentId = proposalforce.RFP_MainController.generateWordDoc('test', testRfp.Id, 'test');
+    string newContentDocumentId = RFP_MainController.generateWordDoc('test', testRfp.Id, 'test');
     string newCDI = [select id from contentdocument order by createddate desc limit 1].Id;
     System.assertEquals(newCDI, newContentDocumentId);
 	}
@@ -256,7 +256,7 @@ Private Static testmethod void generateWordDoc(){
 	}
 
 	try{
-		proposalforce.RFP_MainController.generateWordDoc(null, null, null);
+		RFP_MainController.generateWordDoc(null, null, null);
 	}
 	catch(exception e) {
 		system.debug(e);
