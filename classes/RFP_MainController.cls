@@ -62,7 +62,7 @@ public static string getCurrentUserId() {
 @AuraEnabled
 public static List<rfp_Question__c> getQuestions(string selectedRfpId) {
 	try{
-		proposalforce.RFP_MainController.checkAccess('RFP_Question__c', new string[] {
+		RFP_MainController.checkAccess('RFP_Question__c', new string[] {
 				'name',
 				'id',
 				'Assignee__c',
