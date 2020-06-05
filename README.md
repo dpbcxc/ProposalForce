@@ -6,7 +6,10 @@
 -->
 
 # ProposalForce
-
+<a href="https://githubsfdeploy.herokuapp.com">
+  <img alt="Deploy to Salesforce"
+       src="https://raw.githubusercontent.com/afawcett/githubsfdeploy/master/deploy.png">
+</a>
 ### Answer your RFPs quickly and repeatably
 This app allows users to create, search, and categorize RFP/RFI/RFx answers, track the status of RFPs and questions, assign them to users, and generate documents from questions and answers.
 
